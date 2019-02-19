@@ -6,6 +6,7 @@ import vk_api
 from services import get_content_from_file_system
 from services import check_existence_content_pickle
 
+#https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/tTQRtFq8EeiRsxJFDm6TJA_3422191ca7e55751c7ab1ceb6244239e_single-copy.png?expiry=1550707200000&hmac=bMXWjG57F8OB93cQBBfQtb77QXTnwLh8pUuMSIs-BHg
 class VKApiPostingError(Exception):
     """Declare special exception."""
     pass
