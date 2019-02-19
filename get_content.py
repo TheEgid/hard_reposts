@@ -6,7 +6,9 @@ def get_content_from_files_system(content_number)
     text_extension = '.jpg'
     img_extension = '.txt'
     if not os.path.exists(dir_name):
-        os.makedirs(dir_name)
+        except FileNotFoundError:
+		logging.exception('folder error! check the content_folder')
+		raise FileNotFoundError('folder error!')
     content_text_file_path_and_name = dir_name+'/'+str(content)+'/'+text_extension
     content_img_file_path_and_name = dir_name+'/'+str(content)+'/'+img_extension	
     if not os.path.isfile(content_text_file_path_and_name): 
