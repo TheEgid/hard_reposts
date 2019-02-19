@@ -11,12 +11,12 @@ def get_content_from_files_system(content_number)
     content_img_file_path_and_name = dir_name+'/'+str(content)+'/'+img_extension	
     if not os.path.isfile(content_text_file_path_and_name): 
         except FileNotFoundError:
-			logging.exception('content_text file error! check the content_folder')
-			raise FileNotFoundError('content_text error!')
+		logging.exception('content_text file error! check the content_folder')
+		raise FileNotFoundError('content_text error!')
     if not os.path.isfile(content_img_file_path_and_name):
         except FileNotFoundError:
-			logging.exception('content_img file error! check the content_folder')
-			raise FileNotFoundError('content_img error!')
+		logging.exception('content_img file error! check the content_folder')
+		raise FileNotFoundError('content_img error!')
     with open(content_text_file_path_and_name, 'r') as inp_file:
     	content_text = inp_file.read()
     return (content_text, content_img_file_path_and_name)
