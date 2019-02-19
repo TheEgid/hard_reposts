@@ -22,3 +22,9 @@ def get_content_from_files_system(content_number)
     with open(content_text_file_path_and_name, 'r') as inp_file:
     	content_text = inp_file.read()
     return (content_text, content_img_file_path_and_name)
+
+
+#pickle.dump(all_followers, f)
+
+
+#all_followers = pickle.load(f)
