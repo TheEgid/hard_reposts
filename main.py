@@ -1,7 +1,8 @@
 import os
 import sys
-import vk_api
+import logging
 from dotenv import load_dotenv
+import vk_api
 
 class VKApiPostingError(Exception):
     """Declare special exception."""
@@ -38,4 +39,4 @@ if __name__ == '__main__':
             message=my_message,
             vk_group=GROUP_ID_VK,
             image=None)
-
+    #logging.info('finished!')
