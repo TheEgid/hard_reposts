@@ -31,16 +31,11 @@ pip install -r requirements.txt
 ```
 python3 main.py 12
 ```
-Программа выводит в консоль лог своей работы. Пример лога
+Программа выводит в консоль лог своей работы. 
 
-```
-INFO:root: Success publish: post was publised
-```
-
-!
 ```
 INFO:root:download & saved images/space1.jpg
 2019-01-02 00:51:41,505 - INFO - Photo 'images\space1.jpg' is uploaded.
 INFO:root:timeout= 21
 ```
-После этого сообщения посты размещены.
+После этого сообщения пост размещен.
