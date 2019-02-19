@@ -8,8 +8,11 @@ input = content_number
 Скачиваем файлы в папку hard_reposts. В этой же папке создаем .env файл. Ваш .env должен содержать строки:
 
 ```
-LOGIN_INST=ваш_инстаграм_логин
-PASSWORD_INST=ваш_инстаграм_пароль
+LOGIN_VK = ваш_логин_в_контакте
+PASSWORD_VK = ваш_пароль_в_контакте
+TOKEN_VK = токен_вашего приложения_в_контакте
+GROUP_ID_VK = id_группы_в_контакте
+GROUP_ID_ALBUM_VK = id_альбома_в_контакте
 ```
 
 Python3 должен быть уже установлен. 
@@ -30,10 +33,8 @@ python3 main.py 12
 ```
 Программа выводит в консоль лог своей работы. Пример лога
 
- ```
-INFO:root:download & saved images/space1.jpg
-2019-01-02 00:51:41,505 - INFO - Photo 'images\space1.jpg' is uploaded.
-INFO:root:timeout= 21
+```
+INFO:root: Success publish: post was publised
 ```
 
 !
