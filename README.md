@@ -34,8 +34,6 @@ python3 main.py 12
 Программа выводит в консоль лог своей работы. 
 
 ```
-INFO:root:download & saved images/space1.jpg
-2019-01-02 00:51:41,505 - INFO - Photo 'images\space1.jpg' is uploaded.
-INFO:root:timeout= 21
+INFO:root: Success publish: post was publised
 ```
 После этого сообщения пост размещен.
