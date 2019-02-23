@@ -2,6 +2,7 @@ import logging
 import os
 import pickle
 
+
 def get_content_from_file_system(content_number):
     dir_name = 'content_folder'
     img_ext = '.jpg'
@@ -37,12 +38,3 @@ def check_existence_content_pickle(content_number):
         with open("content_list.pickle", "wb") as pickle_file:
             pickle.dump(numbers_list, pickle_file)
         return content_number
-
-
-
-if __name__ == '__main__':
-    v = check_existence_content_pickle(66)
-    print(v)
-
-
-#all_followers = pickle.load(f)
