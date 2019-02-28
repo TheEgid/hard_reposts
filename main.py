@@ -27,22 +27,22 @@ class FacebookApiPostingError(Exception):
 def post_facebook(token, fb_group, content_text, content_img_file_pathname):
     url = 'https://graph.facebook.com/{}/photos'.format(fb_group)
     params = {'access_token': token, 'message': content_text}
-    files = {'file': open(content_img_file_pathname, 'rb')}
-    response = requests.post(url=url, params=params, files=files)
+    with open(content_img_file_pathname, 'rb') as img_file:
+        response = requests.post(url=url, params=params, files={'file': img_file})
     if response.ok:
         pass
     else:
-        FacebookApiPostingError()
+        raise FacebookApiPostingError()
 
 
 def post_telegram(token, tg_channel, content_text, content_img_file_pathname):
     bot = telegram.Bot(token=token)
     try:
         bot.send_message(chat_id=tg_channel, text=content_text)
-        bot.send_photo(chat_id=tg_channel,
-                       photo=open(content_img_file_pathname, 'rb'))
+        with open(content_img_file_pathname, 'rb') as img_file:
+            bot.send_photo(chat_id=tg_channel, photo=img_file)
     except telegram.error:
-        TelegramApiPostingError()
+        raise TelegramApiPostingError()
 
 
 def post_vkontakte(login, password, token, vk_group, vk_group_album,
@@ -51,7 +51,7 @@ def post_vkontakte(login, password, token, vk_group, vk_group_album,
     try:
         vk_session.auth(token_only=True)
     except vk_api.exceptions:
-         vk_api.AuthError()
+         raise vk_api.AuthError()
     vk = vk_session.get_api()
     upload = vk_api.VkUpload(vk_session)
     img = upload.photo(photos=content_img_file_pathname,

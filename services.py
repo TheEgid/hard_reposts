@@ -5,14 +5,12 @@ import pickle
 
 def get_content_from_file_system(content_number):
     dir_name = 'content_folder'
-    img_ext = '.jpg'
-    text_ext = '.txt'
     if not os.path.exists(dir_name):
         logging.exception('folder error! check the content_folder')
         raise FileNotFoundError('folder error!')
 
-    content_text_file_pathname = dir_name + '/' +str(content_number) + text_ext
-    content_img_file_pathname = dir_name + '/' +str(content_number) + img_ext
+    content_img_file_pathname = '{}/{}.jpg'.format(dir_name, content_number)
+    content_text_file_pathname = '{}/{}.txt'.format(dir_name, content_number)
 
     if not os.path.isfile(content_text_file_pathname):
         logging.exception('content_text file error! check the content_folder')
