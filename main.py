@@ -76,7 +76,7 @@ def post_all(content_number):
     content_number = check_existence_content_pickle(content_number)
 
     if content_number is None:
-        logging.info(' No success publish: already posted')
+        logging.info(' No success publish: already published')
     else:
         text, img_file_pathname = get_content_from_file_system(content_number)
 
@@ -87,19 +87,19 @@ def post_all(content_number):
                 vk_group_album=GROUP_ID_ALBUM_VK,
                 content_text=text,
                 content_img_file_pathname=img_file_pathname)
-        logging.info(' Success publish: vkontakte post was publised')
+        logging.info(' Success publish: vkontakte post was published')
 
         post_telegram(token=TOKEN_TG,
                 tg_channel=CHANNEL_TG,
                 content_text=text,
                 content_img_file_pathname=img_file_pathname)
-        logging.info(' Success publish: telegram post was publised')
+        logging.info(' Success publish: telegram post was published')
 
         post_facebook(token=TOKEN_FB,
                   fb_group =GROUP_ID_FB,
                   content_text=text,
                   content_img_file_pathname=img_file_pathname)
-        logging.info(' Success publish: facebook post was publised')
+        logging.info(' Success publish: facebook post was published')
 
 
 if __name__ == '__main__':
