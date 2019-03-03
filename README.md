@@ -37,7 +37,7 @@ python3 main.py 12
 Программа выводит в консоль лог своей работы. 
 
 ```
-INFO:root: Success publish: facebook post was publised
+INFO:root: Success publish: facebook post was published
 ```
 После этого сообщения пост размещен.
 
