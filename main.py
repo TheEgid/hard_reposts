@@ -9,18 +9,16 @@ import telegram
 from services import get_content_from_file_system
 from services import check_existence_content_pickle
 
+
 class VKApiPostingError(Exception):
-    """Declare special exception."""
     pass
 
 
 class TelegramApiPostingError(Exception):
-    """Declare special exception."""
     pass
 
 
 class FacebookApiPostingError(Exception):
-    """Declare special exception."""
     pass
 
 
@@ -29,9 +27,7 @@ def post_facebook(token, fb_group, content_text, content_img_file_pathname):
     params = {'access_token': token, 'message': content_text}
     with open(content_img_file_pathname, 'rb') as img_file:
         response = requests.post(url=url, params=params, files={'file': img_file})
-    if response.ok:
-        pass
-    else:
+    if not response.ok:
         raise FacebookApiPostingError()
 
 
@@ -41,7 +37,7 @@ def post_telegram(token, tg_channel, content_text, content_img_file_pathname):
         bot.send_message(chat_id=tg_channel, text=content_text)
         with open(content_img_file_pathname, 'rb') as img_file:
             bot.send_photo(chat_id=tg_channel, photo=img_file)
-    except telegram.error:
+    except telegram.TelegramError:
         raise TelegramApiPostingError()
 
 
@@ -51,14 +47,14 @@ def post_vkontakte(login, password, token, vk_group, vk_group_album,
     try:
         vk_session.auth(token_only=True)
     except vk_api.exceptions:
-         raise vk_api.AuthError()
+         raise VKApiPostingError()
     vk = vk_session.get_api()
     upload = vk_api.VkUpload(vk_session)
     img = upload.photo(photos=content_img_file_pathname,
                        album_id=vk_group_album,
                        group_id=vk_group)
     attach = 'photo{}_{}'.format(img[0]['owner_id'], img[0]['id'])
-    vk_group = int(vk_group) * -1
+    vk_group = int(vk_group) * -1  # with "-" (vk.com/dev/wall.post#owner_id)
     vk.wall.post(message=content_text,
                  access_token=token,
                  owner_id=vk_group,
