@@ -10,25 +10,14 @@ from services import get_content_from_file_system
 from services import check_existence_content_pickle
 
 
-class VKApiPostingError(Exception):
-    pass
-
-
-class TelegramApiPostingError(Exception):
-    pass
-
-
-class FacebookApiPostingError(Exception):
-    pass
-
-
 def post_facebook(token, fb_group, content_text, content_img_file_pathname):
     url = 'https://graph.facebook.com/{}/photos'.format(fb_group)
     params = {'access_token': token, 'message': content_text}
     with open(content_img_file_pathname, 'rb') as img_file:
         response = requests.post(url=url, params=params, files={'file': img_file})
     if not response.ok:
-        raise FacebookApiPostingError()
+        err = eval(response.text)
+        raise Exception(err['error']['type'])
 
 
 def post_telegram(token, tg_channel, content_text, content_img_file_pathname):
@@ -38,7 +27,7 @@ def post_telegram(token, tg_channel, content_text, content_img_file_pathname):
         with open(content_img_file_pathname, 'rb') as img_file:
             bot.send_photo(chat_id=tg_channel, photo=img_file)
     except telegram.TelegramError:
-        raise TelegramApiPostingError()
+        raise
 
 
 def post_vkontakte(login, password, token, vk_group, vk_group_album,
@@ -47,7 +36,7 @@ def post_vkontakte(login, password, token, vk_group, vk_group_album,
     try:
         vk_session.auth(token_only=True)
     except vk_api.exceptions:
-         raise VKApiPostingError()
+         raise
     vk = vk_session.get_api()
     upload = vk_api.VkUpload(vk_session)
     img = upload.photo(photos=content_img_file_pathname,
@@ -61,7 +50,7 @@ def post_vkontakte(login, password, token, vk_group, vk_group_album,
                  attachments=attach)
     wallpostsdict = vk.wall.get(count=1, owner_id=vk_group)['items'][0]
     if wallpostsdict['text'] != content_text:
-        raise VKApiPostingError()
+        raise Exception('error with: '+content_text)
 
 
 def get_args_parser():
