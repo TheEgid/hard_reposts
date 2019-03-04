@@ -53,6 +53,7 @@ def get_args_parser():
 
 
 def post_all(content_number):
+    logging.basicConfig(level=logging.INFO)
     load_dotenv()
 
     LOGIN_VK = os.getenv("LOGIN_VK")
@@ -97,7 +98,6 @@ def post_all(content_number):
 if __name__ == '__main__':
     dir_path = os.path.dirname(os.path.realpath(__file__))
     sys.path.insert(0, os.path.split(dir_path)[0])
-    logging.basicConfig(level=logging.INFO)
     arg_parser = get_args_parser()
     args = arg_parser.parse_args()
     post_all(args.number)
