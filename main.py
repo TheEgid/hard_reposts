@@ -15,28 +15,20 @@ def post_facebook(token, fb_group, content_text, content_img_file_pathname):
     params = {'access_token': token, 'message': content_text}
     with open(content_img_file_pathname, 'rb') as img_file:
         response = requests.post(url=url, params=params, files={'file': img_file})
-    if not response.ok:
-        err = eval(response.text)
-        raise Exception(err['error']['type'])
+        response.raise_for_status()
 
 
 def post_telegram(token, tg_channel, content_text, content_img_file_pathname):
     bot = telegram.Bot(token=token)
-    try:
-        bot.send_message(chat_id=tg_channel, text=content_text)
-        with open(content_img_file_pathname, 'rb') as img_file:
-            bot.send_photo(chat_id=tg_channel, photo=img_file)
-    except telegram.TelegramError:
-        raise
+    bot.send_message(chat_id=tg_channel, text=content_text)
+    with open(content_img_file_pathname, 'rb') as img_file:
+		bot.send_photo(chat_id=tg_channel, photo=img_file)
 
 
 def post_vkontakte(login, password, token, vk_group, vk_group_album,
             content_text, content_img_file_pathname):
     vk_session = vk_api.VkApi(login, password)
-    try:
-        vk_session.auth(token_only=True)
-    except vk_api.exceptions:
-         raise
+    vk_session.auth(token_only=True)
     vk = vk_session.get_api()
     upload = vk_api.VkUpload(vk_session)
     img = upload.photo(photos=content_img_file_pathname,
