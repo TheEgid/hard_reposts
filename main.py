@@ -22,7 +22,7 @@ def post_telegram(token, tg_channel, content_text, content_img_file_pathname):
     bot = telegram.Bot(token=token)
     bot.send_message(chat_id=tg_channel, text=content_text)
     with open(content_img_file_pathname, 'rb') as img_file:
-		bot.send_photo(chat_id=tg_channel, photo=img_file)
+        bot.send_photo(chat_id=tg_channel, photo=img_file)
 
 
 def post_vkontakte(login, password, token, vk_group, vk_group_album,
@@ -53,7 +53,6 @@ def get_args_parser():
 
 
 def post_all(content_number):
-    logging.basicConfig(level=logging.INFO)
     load_dotenv()
 
     LOGIN_VK = os.getenv("LOGIN_VK")
@@ -96,6 +95,7 @@ def post_all(content_number):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     dir_path = os.path.dirname(os.path.realpath(__file__))
     sys.path.insert(0, os.path.split(dir_path)[0])
     arg_parser = get_args_parser()
